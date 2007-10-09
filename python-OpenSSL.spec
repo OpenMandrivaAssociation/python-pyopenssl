@@ -3,7 +3,7 @@
 %define version 0.6
 %define release %mkrel 4
 
-Summary: Python interface to the OpenSSL library.
+Summary: Python interface to the OpenSSL library
 Name: %{name}
 Version: %{version}
 Release: %{release}
