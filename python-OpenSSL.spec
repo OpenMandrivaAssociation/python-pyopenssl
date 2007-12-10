@@ -1,7 +1,7 @@
 %define pname OpenSSL
 %define name python-%{pname}
 %define version 0.6
-%define release %mkrel 4
+%define release %mkrel 5
 
 Summary: Python interface to the OpenSSL library
 Name: %{name}
@@ -27,7 +27,7 @@ High-level wrapper around a subset of the OpenSSL library, includes
 %prep
 rm -rf $RPM_BUILD_ROOT
 
-%setup -n py%pname-%version
+%setup -q -n py%pname-%version
 
 %build
 %_bindir/python setup.py build
@@ -43,5 +43,4 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %doc COPYING TODO README INSTALL ChangeLog examples
 %py_platsitedir/*SSL*
-
 
