@@ -10,7 +10,6 @@ Release: %{release}
 Source: http://telia.dl.sourceforge.net/sourceforge/pyopenssl/py%pname-%{version}.tar.bz2
 License: GPL
 Group: Development/Python
-BuildRoot: %{_tmppath}/%{name}-buildroot
 Url: http://pyopenssl.sourceforge.net/
 Requires: python >= 2.2
 BuildRequires: python-devel openssl-devel
