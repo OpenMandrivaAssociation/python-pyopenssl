@@ -1,46 +1,53 @@
 %define pname OpenSSL
 %define name python-%{pname}
-%define version 0.6
-%define release %mkrel 6
+%define version 0.7
+%define release %mkrel 1
 
 Summary: Python interface to the OpenSSL library
 Name: %{name}
 Version: %{version}
 Release: %{release}
-Source: http://telia.dl.sourceforge.net/sourceforge/pyopenssl/py%pname-%{version}.tar.bz2
-License: GPL
+Source: http://telia.dl.sourceforge.net/sourceforge/pyopenssl/py%pname-%{version}.tar.lzma
+License: LGPLv2.1
 Group: Development/Python
 BuildRoot: %{_tmppath}/%{name}-buildroot
 Url: http://pyopenssl.sourceforge.net/
 Requires: python >= 2.2
 BuildRequires: python-devel openssl-devel
+BuildRequires: tetex-latex tetex-dvipdfm
 Obsoletes: pyOpenSSL
 Provides: pyOpenSSL
 
 %description
-High-level wrapper around a subset of the OpenSSL library, includes
- * SSL.Connection objects, wrapping the methods of Python's portable sockets
- * Callbacks written in Python
- * Extensive error-handling mechanism, mirroring OpenSSL's error codes
-...  and much more ;)
+pyOpenSSL is a high-level Python wrapper around a subset of OpenSSL library.
+It includes
+
+* SSL.Connection objects, wrapping the methods of Python's portable sockets;
+* callbacks written in Python;
+* an extensive error-handling mechanism, mirroring OpenSSL's error codes;
+* and much more.
 				
 %prep
-rm -rf $RPM_BUILD_ROOT
+%__rm -rf %{buildroot}
 
 %setup -q -n py%pname-%version
 
 %build
-%_bindir/python setup.py build
+%__python setup.py build
 
 %install
-%_bindir/python setup.py install --root=$RPM_BUILD_ROOT 
-chmod 0644 examples/SecureXMLRPCServer.py
+%__python setup.py install --root=%{buildroot} --record=FILELIST
+
+pushd doc
+make dvi PAPER=letter
+dvipdfm pyOpenSSL.dvi
+popd
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+%__rm -rf %{buildroot}
 
-%files
+%files -f FILELIST
 %defattr(-,root,root)
-%doc COPYING TODO README INSTALL ChangeLog examples
-%py_platsitedir/*SSL*
+%doc COPYING TODO README INSTALL ChangeLog examples/ doc/pyOpenSSL.pdf
+
 
