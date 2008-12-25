@@ -1,14 +1,14 @@
 %define pname OpenSSL
 %define name python-%{pname}
-%define version 0.7
-%define release %mkrel 2
+%define version 0.8
+%define release %mkrel 1
 
 Summary: Python interface to the OpenSSL library
 Name: %{name}
 Version: %{version}
 Release: %{release}
-Source: http://telia.dl.sourceforge.net/sourceforge/pyopenssl/py%pname-%{version}.tar.lzma
-License: LGPLv2.1
+Source: http://telia.dl.sourceforge.net/sourceforge/pyopenssl/py%pname-%{version}.tar.gz
+License: LGPLv2
 Group: Development/Python
 BuildRoot: %{_tmppath}/%{name}-buildroot
 Url: http://pyopenssl.sourceforge.net/
