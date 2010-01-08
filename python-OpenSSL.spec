@@ -1,6 +1,6 @@
 %define pname OpenSSL
 %define name python-%{pname}
-%define version 0.9
+%define version 0.10
 %define release %mkrel 1
 
 Summary: Python interface to the OpenSSL library
