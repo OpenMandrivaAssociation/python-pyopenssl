@@ -1,7 +1,7 @@
 %define pname OpenSSL
 %define name python-%{pname}
 %define version 0.10
-%define release %mkrel 2
+%define release %mkrel 3
 
 Summary: Python interface to the OpenSSL library
 Name: %{name}
@@ -36,7 +36,7 @@ It includes
 %__python setup.py build
 
 %install
-%__python setup.py install --root=%{buildroot} --record=FILELIST
+%__python setup.py install --root=%{buildroot}
 
 pushd doc
 make dvi PAPER=letter
@@ -46,8 +46,7 @@ popd
 %clean
 %__rm -rf %{buildroot}
 
-%files -f FILELIST
+%files
 %defattr(-,root,root)
 %doc COPYING TODO README INSTALL ChangeLog examples/ doc/pyOpenSSL.pdf
-
-
+%python_sitearch/*
