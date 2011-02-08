@@ -1,30 +1,31 @@
-%define pname OpenSSL
-%define name python-%{pname}
-%define version 0.10
-%define release %mkrel 4
+%define pname	OpenSSL
+%define name	python-%{pname}
+%define version 0.11
+%define release %mkrel 1
 
-Summary: Python interface to the OpenSSL library
-Name: %{name}
-Version: %{version}
-Release: %{release}
-Source: http://telia.dl.sourceforge.net/sourceforge/pyopenssl/py%pname-%{version}.tar.gz
-License: LGPLv2
-Group: Development/Python
-BuildRoot: %{_tmppath}/%{name}-buildroot
-Url: http://pyopenssl.sourceforge.net/
-Requires: python >= 2.2
-BuildRequires: python-devel openssl-devel
-BuildRequires: tetex-latex tetex-dvipdfm
-Obsoletes: pyOpenSSL
-Provides: pyOpenSSL
+Summary:	Python interface to the OpenSSL library
+Name:		%{name}
+Version:	%{version}
+Release:	%{release}
+Source:		http://launchpad.net/pyopenssl/main/%{version}/+download/py%{pname}-%{version}.tar.gz
+License:	LGPLv2.1
+Group:		Development/Python
+BuildRoot:	%{_tmppath}/%{name}-buildroot
+Url:		https://launchpad.net/pyopenssl
+Requires:	python >= 2.2
+BuildRequires:	python-devel openssl-devel
+BuildRequires:	tetex-latex tetex-dvipdfm
+Obsoletes:	pyOpenSSL
+Provides:	pyOpenSSL
 
 %description
 pyOpenSSL is a high-level Python wrapper around a subset of OpenSSL library.
-It includes
+It includes SSL Context objects, SSL Connection objects, using Python sockets as a transport layer.
 
-* SSL.Connection objects, wrapping the methods of Python's portable sockets;
+* SSL Context objects;
+* SSL Connection objects, that use Python sockets as a transport layer;
 * callbacks written in Python;
-* an extensive error-handling mechanism, mirroring OpenSSL's error codes;
+* an extensive error-handling mechanism that mirrors OpenSSL's error codes;
 * and much more.
 				
 %prep
@@ -36,7 +37,7 @@ It includes
 %__python setup.py build
 
 %install
-%__python setup.py install --root=%{buildroot}
+PYTHONDONTWRITEBYTECODE= %__python setup.py install --root=%{buildroot}
 
 pushd doc
 make dvi PAPER=letter
