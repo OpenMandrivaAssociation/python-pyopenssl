@@ -1,6 +1,6 @@
 %define pname	OpenSSL
 %define name	python-%{pname}
-%define version 0.11
+%define version 0.12
 %define release %mkrel 1
 
 Summary:	Python interface to the OpenSSL library
@@ -49,5 +49,5 @@ popd
 
 %files
 %defattr(-,root,root)
-%doc COPYING TODO README INSTALL ChangeLog examples/ doc/pyOpenSSL.pdf
+%doc TODO README ChangeLog examples/ doc/pyOpenSSL.pdf
 %python_sitearch/*
