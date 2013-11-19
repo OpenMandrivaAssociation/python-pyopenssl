@@ -4,19 +4,19 @@ Summary:	Python interface to the OpenSSL library
 Name:		python-%{pname}
 Version:	0.12
 Release:	5
-Source:		http://launchpad.net/pyopenssl/main/%{version}/+download/py%{pname}-%{version}.tar.gz
 License:	LGPLv2.1
 Group:		Development/Python
 Url:		https://launchpad.net/pyopenssl
-Requires:	python >= 2.2
-BuildRequires:	python-devel
+Source0:	http://launchpad.net/pyopenssl/main/%{version}/+download/py%{pname}-%{version}.tar.gz
 BuildRequires:	pkgconfig(openssl)
+BuildRequires:	pkgconfig(python)
 BuildRequires:	tetex-latex
 BuildRequires:	tetex-dvipdfm
 # We don't need whole texlive collection
 # but it's hard to find what exactly we need
 # so we require whole set for now
 BuildRequires:	texlive
+Requires:	python >= 2.2
 Provides:	pyOpenSSL
 
 %description
@@ -31,7 +31,7 @@ sockets as a transport layer.
 * and much more.
 				
 %prep
-%setup -q -n py%{pname}-%{version}
+%setup -qn py%{pname}-%{version}
 
 %build
 %__python setup.py build
@@ -47,5 +47,4 @@ popd
 %files
 %doc TODO README ChangeLog examples/ doc/pyOpenSSL.pdf
 %{python_sitearch}/*
-
 
