@@ -3,7 +3,7 @@
 Summary:	Python interface to the OpenSSL library
 Name:		python-%{pname}
 Version:	0.13.1
-Release:	2
+Release:	3
 License:	LGPLv2.1
 Group:		Development/Python
 Url:		https://launchpad.net/pyopenssl
