@@ -1,50 +1,82 @@
-%define pname	OpenSSL
+%define debug_package %nil
+%define pname pyopenssl
+%define name python-%{pname}
 
 Summary:	Python interface to the OpenSSL library
 Name:		python-%{pname}
-Version:	0.13.1
-Release:	3
-License:	LGPLv2.1
+Version:	0.14
+Release:	1
+Source0:	http://launchpad.net/pyopenssl/main/%{version}/+download/%pname-%{version}.tar.gz
+License:	LGPLv2
 Group:		Development/Python
 Url:		https://launchpad.net/pyopenssl
-Source0:	http://launchpad.net/pyopenssl/main/%{version}/+download/py%{pname}-%{version}.tar.gz
+BuildRequires:	pkgconfig(openssl)
 BuildRequires:	pkgconfig(openssl)
 BuildRequires:	pkgconfig(python)
-BuildRequires:	tetex-latex
-BuildRequires:	tetex-dvipdfm
-# We don't need whole texlive collection
-# but it's hard to find what exactly we need
-# so we require whole set for now
-BuildRequires:	texlive
-Requires:	python >= 2.2
+
+Obsoletes:	pyOpenSSL
 Provides:	pyOpenSSL
 
 %description
-pyOpenSSL is a high-level Python wrapper around a subset of OpenSSL library.
-It includes SSL Context objects, SSL Connection objects, using Python
-sockets as a transport layer.
+pyOpenSSL is a high-level Python wrapper
+around a subset of OpenSSL library.
 
-* SSL Context objects;
-* SSL Connection objects, that use Python sockets as a transport layer;
+It includes:
+* SSL.Connection objects, wrapping the methods of Python's portable sockets;
 * callbacks written in Python;
-* an extensive error-handling mechanism that mirrors OpenSSL's error codes;
+* an extensive error-handling mechanism, mirroring OpenSSL's error codes;
 * and much more.
-				
+
+%package -n python2-%{pname}
+Summary:	Python wrapper module around the OpenSSL library
+Group:		Development/Python
+
+%description -n python2-%{pname}
+High-level wrapper around a subset of
+the OpenSSL library, includes among others
+ * SSL.Connection objects, wrapping the methods of Python's portable
+   sockets
+ * Callbacks written in Python
+ * Extensive error-handling mechanism, mirroring OpenSSL's error codes
+
+
+%package doc
+Summary:	Documentation for python-%{pname}
+BuildArch:	noarch
+
+%description doc
+Documentation for python-OpenSSL
+
 %prep
-%setup -qn py%{pname}-%{version}
+%setup -qn %{pname}-%{version}
+cp -a . %{py2dir}
+find %{py2dir} -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python2}|'
+
+find -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python}|'
 
 %build
-%__python setup.py build
+CFLAGS="%{optflags} -fno-strict-aliasing" %{__python} setup.py build
 
-%install
-PYTHONDONTWRITEBYTECODE= %__python setup.py install --root=%{buildroot}
-
-pushd doc
-make dvi PAPER=letter
-dvipdfm pyOpenSSL.dvi
+pushd %{py2dir}
+CFLAGS="%{optflags} -fno-strict-aliasing" %{__python2} setup.py build
 popd
 
-%files
-%doc TODO README ChangeLog examples/ doc/pyOpenSSL.pdf
-%{python_sitearch}/*
+%install
+%{__python} setup.py install --skip-build --root %{buildroot}
 
+pushd %{py2dir}
+%{__python2} setup.py install --skip-build --root %{buildroot}
+popd
+
+
+%files
+%{python_sitelib}/OpenSSL/
+%{python_sitelib}/pyOpenSSL-*.egg-info
+
+
+%files -n python2-%{pname}
+%{python2_sitelib}/OpenSSL/
+%{python2_sitelib}/pyOpenSSL-*.egg-info
+
+%files doc
+%doc TODO README INSTALL ChangeLog examples/
