@@ -11,8 +11,8 @@ License:	LGPLv2
 Group:		Development/Python
 Url:		https://launchpad.net/pyopenssl
 BuildRequires:	pkgconfig(openssl)
-BuildRequires:	pkgconfig(openssl)
-BuildRequires:	pkgconfig(python)
+BuildRequires:	pkgconfig(python3)
+BuildRequires:	pkgconfig(python2)
 BuildRequires:	python-distribute
 BuildRequires:	python2-distribute
 
