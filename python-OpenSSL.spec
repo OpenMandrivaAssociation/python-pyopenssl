@@ -13,6 +13,8 @@ Url:		https://launchpad.net/pyopenssl
 BuildRequires:	pkgconfig(openssl)
 BuildRequires:	pkgconfig(openssl)
 BuildRequires:	pkgconfig(python)
+BuildRequires:	python-distribute
+BuildRequires:	python2-distribute
 
 Obsoletes:	pyOpenSSL
 Provides:	pyOpenSSL
