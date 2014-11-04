@@ -5,7 +5,7 @@
 Summary:	Python interface to the OpenSSL library
 Name:		python-%{pname}
 Version:	0.14
-Release:	1
+Release:	2
 Source0:	http://launchpad.net/pyopenssl/main/%{version}/+download/%pname-%{version}.tar.gz
 License:	LGPLv2
 Group:		Development/Python
@@ -15,9 +15,9 @@ BuildRequires:	pkgconfig(python3)
 BuildRequires:	pkgconfig(python2)
 BuildRequires:	python-distribute
 BuildRequires:	python2-distribute
-
 Obsoletes:	pyOpenSSL
 Provides:	pyOpenSSL
+%rename		python-OpenSSL
 
 %description
 pyOpenSSL is a high-level Python wrapper
