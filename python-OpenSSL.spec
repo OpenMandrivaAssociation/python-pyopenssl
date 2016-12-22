@@ -4,9 +4,9 @@
 
 Summary:	Python interface to the OpenSSL library
 Name:		python-%{pname}
-Version:	0.14
-Release:	4
-Source0:	http://launchpad.net/pyopenssl/main/%{version}/+download/%pname-%{version}.tar.gz
+Version:	16.2.0
+Release:	1
+Source0:	http://launchpad.net/pyopenssl/main/%{version}/+download/pyOpenSSL-%{version}.tar.gz
 License:	LGPLv2
 Group:		Development/Python
 Url:		https://launchpad.net/pyopenssl
@@ -50,7 +50,7 @@ BuildArch:	noarch
 Documentation for python-OpenSSL
 
 %prep
-%setup -qn %{pname}-%{version}
+%setup -qn pyOpenSSL-%{version}
 cp -a . %{py2dir}
 find %{py2dir} -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python2}|'
 
@@ -81,4 +81,4 @@ popd
 %{python2_sitelib}/pyOpenSSL-*.egg-info
 
 %files doc
-%doc TODO README INSTALL ChangeLog examples/
+%doc README.rst INSTALL.rst CHANGELOG.rst examples/
