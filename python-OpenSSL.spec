@@ -14,7 +14,9 @@ BuildRequires:	pkgconfig(openssl)
 BuildRequires:	pkgconfig(python3)
 BuildRequires:	pkgconfig(python2)
 BuildRequires:	python-distribute
+BuildRequires:	python-pkg-resources
 BuildRequires:	python2-distribute
+BuildRequires:	python2-pkg-resources
 Obsoletes:	pyOpenSSL
 Provides:	pyOpenSSL
 %rename		python-OpenSSL
