@@ -5,7 +5,7 @@
 Summary:	Python interface to the OpenSSL library
 Name:		python-%{pname}
 Version:	16.2.0
-Release:	2
+Release:	3
 Source0:	http://launchpad.net/pyopenssl/main/%{version}/+download/pyOpenSSL-%{version}.tar.gz
 License:	LGPLv2
 Group:		Development/Python
