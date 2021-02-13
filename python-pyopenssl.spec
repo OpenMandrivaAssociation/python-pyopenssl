@@ -4,43 +4,37 @@
 
 Summary:	Python interface to the OpenSSL library
 Name:		python-%{pname}
-Version:	17.5.0
-Release:	2
-Source0:	https://github.com/pyca/pyopenssl/archive/%{version}.tar.gz
-License:	LGPLv2
+Version:	20.0.1
+Release:	1
+Source0:	https://github.com/pyca/pyopenssl/archive/%{version}/%{name}-%{version}.tar.gz
+License:	ASL 2.0
 Group:		Development/Python
 Url:		https://pyopenssl.org/
-BuildRequires:	pkgconfig(openssl)
+
 BuildRequires:	pkgconfig(python3)
-BuildRequires:	pkgconfig(python2)
-BuildRequires:	python-distribute
-BuildRequires:	python2-distribute
-Obsoletes:	pyOpenSSL
-Provides:	pyOpenSSL
+BuildRequires:	python3dist(setuptools)
+BuildRequires:	python3dist(cryptography)
+BuildRequires:	python3dist(sphinx)
+BuildRequires:	python3dist(sphinx-rtd-theme)
+
+#Obsoletes:	pyOpenSSL
+#Provides:	pyOpenSSL
 %rename		python-OpenSSL
 
 %description
-pyOpenSSL is a high-level Python wrapper
-around a subset of OpenSSL library.
+pyOpenSSL is a high-level Python wrapper around a subset of OpenSSL library.
 
 It includes:
-* SSL.Connection objects, wrapping the methods of Python's portable sockets;
-* callbacks written in Python;
-* an extensive error-handling mechanism, mirroring OpenSSL's error codes;
-* and much more.
+ *   SSL.Connection objects, wrapping the methods of Python's portable sockets;
+ *   callbacks written in Python;
+ *   an extensive error-handling mechanism, mirroring OpenSSL's error codes;
+ *   and much more.
 
-%package -n python2-%{pname}
-Summary:	Python wrapper module around the OpenSSL library
-Group:		Development/Python
+%files
+%{python_sitelib}/OpenSSL/
+%{python_sitelib}/pyOpenSSL-*.egg-info
 
-%description -n python2-%{pname}
-High-level wrapper around a subset of
-the OpenSSL library, includes among others
- * SSL.Connection objects, wrapping the methods of Python's portable
-   sockets
- * Callbacks written in Python
- * Extensive error-handling mechanism, mirroring OpenSSL's error codes
-
+#--------------------------------------------------------------------
 
 %package doc
 Summary:	Documentation for python-%{pname}
@@ -49,36 +43,20 @@ BuildArch:	noarch
 %description doc
 Documentation for python-OpenSSL
 
-%prep
-%setup -qn pyopenssl-%{version}
-cp -a . %{py2dir}
-find %{py2dir} -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python2}|'
+%files doc
+%doc README.rst INSTALL.rst CHANGELOG.rst doc/_build/html
 
-find -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python}|'
+#--------------------------------------------------------------------
+
+%prep
+%autosetup -p1 -n %{pname}-%{version}
 
 %build
-CFLAGS="%{optflags} -fno-strict-aliasing" %{__python} setup.py build
+%py3_build
 
-pushd %{py2dir}
-CFLAGS="%{optflags} -fno-strict-aliasing" %{__python2} setup.py build
-popd
+# docs
+%make_build -C doc html
 
+	
 %install
-%{__python} setup.py install --skip-build --root %{buildroot}
-
-pushd %{py2dir}
-%{__python2} setup.py install --skip-build --root %{buildroot}
-popd
-
-
-%files
-%{python_sitelib}/OpenSSL/
-%{python_sitelib}/pyOpenSSL-*.egg-info
-
-
-%files -n python2-%{pname}
-%{python2_sitelib}/OpenSSL/
-%{python2_sitelib}/pyOpenSSL-*.egg-info
-
-%files doc
-%doc README.rst INSTALL.rst CHANGELOG.rst examples/
+%py3_install
