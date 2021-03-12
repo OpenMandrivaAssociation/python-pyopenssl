@@ -6,7 +6,7 @@ Summary:	Python interface to the OpenSSL library
 Name:		python-%{pname}
 Version:	20.0.1
 Release:	1
-Source0:	https://github.com/pyca/pyopenssl/archive/%{version}.tar.gz
+Source0:	https://github.com/pyca/pyopenssl/archive/%{version}/%{pname}-%{version}.tar.gz
 License:	LGPLv2
 Group:		Development/Python
 Url:		https://github.com/pyca/pyopenssl
