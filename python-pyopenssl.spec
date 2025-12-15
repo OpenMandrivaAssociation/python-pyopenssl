@@ -10,10 +10,10 @@ Source0:	https://github.com/pyca/pyopenssl/archive/%{version}/%{pname}-%{version
 License:	LGPLv2
 Group:		Development/Python
 Url:		https://github.com/pyca/pyopenssl
+BuildSystem:	python
 BuildRequires:	pkgconfig(openssl)
 BuildRequires:	pkgconfig(python)
-BuildRequires:	python-distribute
-BuildRequires:	python-pkg-resources
+BuildRequires:	python%{pyver}dist(setuptools)
 Obsoletes:	pyOpenSSL
 Provides:	pyOpenSSL
 %rename		python-OpenSSL
@@ -35,19 +35,12 @@ BuildArch:	noarch
 %description doc
 Documentation for python-OpenSSL
 
-%prep
-%setup -qn pyopenssl-%{version}
-find -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python}|'
-
-%build
-CFLAGS="%{optflags} -fno-strict-aliasing" %{__python} setup.py build
-
-%install
-%{__python} setup.py install --skip-build --root %{buildroot}
+%build -p
+export CFLAGS="%{optflags} -fno-strict-aliasing"
 
 %files
 %{python_sitelib}/OpenSSL/
-%{python_sitelib}/pyOpenSSL-*.egg-info
+%{python_sitelib}/pyopenssl-%{version}.dist-info
 
 %files doc
 %doc README.rst INSTALL.rst CHANGELOG.rst
