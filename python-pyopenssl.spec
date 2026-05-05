@@ -4,16 +4,17 @@
 
 Summary:	Python interface to the OpenSSL library
 Name:		python-%{pname}
-Version:	26.1.0
+Version:	26.2.0
 Release:	1
 Source0:	https://github.com/pyca/pyopenssl/archive/%{version}/%{pname}-%{version}.tar.gz
-License:	LGPLv2
+License:	Apache-2.0
 Group:		Development/Python
-Url:		https://github.com/pyca/pyopenssl
+Url:		https://pyopenssl.org/
 BuildSystem:	python
 BuildRequires:	pkgconfig(openssl)
 BuildRequires:	pkgconfig(python)
 BuildRequires:	python%{pyver}dist(setuptools)
+BuildArch:  noarch
 Obsoletes:	pyOpenSSL
 Provides:	pyOpenSSL
 %rename		python-OpenSSL
@@ -39,6 +40,7 @@ Documentation for python-OpenSSL
 export CFLAGS="%{optflags} -fno-strict-aliasing"
 
 %files
+%license LICENSE
 %{python_sitelib}/OpenSSL/
 %{python_sitelib}/pyopenssl-%{version}.dist-info
 
